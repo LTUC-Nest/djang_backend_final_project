@@ -14,15 +14,28 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path,include
 
+from django.contrib import admin
+from django.urls import path, include
+from rest_framework_simplejwt import views as jwt_views
+
+# generate access and refresh tokens for all the Apps
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
-    
-    path('api/v1/properties/',include('properties.urls')),
-    path('api/v1/tenants/',include('tenants.urls')),
-    path('api/v1/LeaseAgreement/',include('LeaseAgreement.urls')),
-    path('api/v1/users/',include('users.urls')),
+
+    path('api/v1/properties/', include('properties.urls')),
+    path('api/v1/properties/token/', jwt_views.TokenObtainPairView.as_view(), name='properties_token_obtain_pair'),
+    path('api/v1/properties/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='properties_token_refresh'),
+
+    path('api/v1/tenants/', include('tenants.urls')),
+    path('api/v1/tenants/token/', jwt_views.TokenObtainPairView.as_view(), name='tenants_token_obtain_pair'),
+    path('api/v1/tenants/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='tenants_token_refresh'),
+
+    path('api/v1/LeaseAgreement/', include('LeaseAgreement.urls')),
+    path('api/v1/LeaseAgreement/token/', jwt_views.TokenObtainPairView.as_view(), name='leaseagreement_token_obtain_pair'),
+    path('api/v1/LeaseAgreement/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='leaseagreement_token_refresh'),
+
+    path('api/v1/users/', include('users.urls')),
+    path('api/v1/users/token/', jwt_views.TokenObtainPairView.as_view(), name='users_token_obtain_pair'),
+    path('api/v1/users/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='users_token_refresh'),
 ]
