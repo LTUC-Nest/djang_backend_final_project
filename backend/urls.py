@@ -19,8 +19,10 @@ from django.urls import path,include
 from rest_framework_simplejwt import views as jwt_views  
 from .views import CustomTokenObtainPairView
 urlpatterns = [
+
     path('admin/', admin.site.urls),
-    
+    path('api/v1/leases/', include('LeaseAgreement.urls')),  # Adjust path to match your app structure
+
     
     path('api/v1/properties/',include('properties.urls')),
     path('api/v1/leaseAgreement/',include('LeaseAgreement.urls')),

@@ -15,6 +15,11 @@ class LeaseAgreement(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # new
+    last_paid_date = models.DateField(null=True, blank=True)  # Add this line
+
+
+    
 
     def __str__(self):
         return f"Lease Agreement for {self.tenant} at {self.property}"
